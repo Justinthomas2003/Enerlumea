@@ -1,4 +1,3 @@
-
 import { NavLink } from "react-router-dom";
 import {
   LayoutDashboard,
@@ -7,15 +6,16 @@ import {
   Sun,
   Settings,
   Leaf,
-  X
+  X,
+  Home,
 } from "lucide-react";
 
 const links = [
-  { label: "Overview", path: "/", icon: LayoutDashboard },
-  { label: "Analytics", path: "/analytics", icon: ChartNoAxesCombined },
-  { label: "Appliances", path: "/appliances", icon: Plug },
-  { label: "Solar Estimator", path: "/solar-estimator", icon: Sun },
-  { label: "Settings", path: "/settings", icon: Settings }
+  { label: "Overview", path: "/dashboard", icon: LayoutDashboard },
+  { label: "Analytics", path: "/dashboard/analytics", icon: ChartNoAxesCombined },
+  { label: "Appliances", path: "/dashboard/appliances", icon: Plug },
+  { label: "Solar Estimator", path: "/dashboard/solar-estimator", icon: Sun },
+  { label: "Settings", path: "/dashboard/settings", icon: Settings },
 ];
 
 export default function Sidebar({ open, onClose }) {
@@ -56,7 +56,7 @@ export default function Sidebar({ open, onClose }) {
             <NavLink
               key={path}
               to={path}
-              end={path === "/"}
+              end
               className={({ isActive }) =>
                 `nav-link ${isActive ? "active" : ""}`
               }
@@ -77,6 +77,14 @@ export default function Sidebar({ open, onClose }) {
             <span>Understand your energy.</span>
           </div>
         </div>
+        <NavLink
+          to="/"
+          className="nav-link back-home-link"
+          onClick={onClose}
+        >
+          <Home size={19} />
+          <span>Back to Home</span>
+        </NavLink>
       </aside>
     </>
   );
