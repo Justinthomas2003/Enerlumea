@@ -8,12 +8,15 @@ import {
   Leaf,
   X,
   Home,
+  ClipboardList,
+  Zap,
 } from "lucide-react";
 
 const links = [
   { label: "Overview", path: "/dashboard", icon: LayoutDashboard },
   { label: "Analytics", path: "/dashboard/analytics", icon: ChartNoAxesCombined },
   { label: "Appliances", path: "/dashboard/appliances", icon: Plug },
+  { label: "Energy Records", path: "/dashboard/energy-records", icon: ClipboardList },
   { label: "Solar Estimator", path: "/dashboard/solar-estimator", icon: Sun },
   { label: "Settings", path: "/dashboard/settings", icon: Settings },
 ];

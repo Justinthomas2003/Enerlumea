@@ -12,6 +12,7 @@ import Contact from "./pages/marketing/Contact";
 import Overview from "./pages/dashboard/Overview";
 import Analytics from "./pages/dashboard/Analytics";
 import Appliances from "./pages/dashboard/Appliances";
+import EnergyRecords from "./pages/dashboard/EnergyRecords";
 import SolarEstimator from "./pages/dashboard/SolarEstimator";
 import Settings from "./pages/dashboard/Settings";
 
@@ -41,6 +42,7 @@ export default function App() {
         <Route index element={<Overview />} />
         <Route path="analytics" element={<Analytics />} />
         <Route path="appliances" element={<Appliances />} />
+        <Route path="energy-records" element={<EnergyRecords />} />
         <Route path="solar-estimator" element={<SolarEstimator />} />
         <Route path="settings" element={<Settings />} />
       </Route>

@@ -1,0 +1,42 @@
+export const initialEnergyRecords = [
+  {
+    id: 1,
+    name: "Household Consumption",
+    type: "Consumption",
+    date: "2026-10-28",
+    energy: 12.5,
+    notes: "Daily household electricity usage",
+  },
+  {
+    id: 2,
+    name: "Rooftop Solar",
+    type: "Generation",
+    date: "2026-10-28",
+    energy: 8.4,
+    notes: "Estimated rooftop solar generation",
+  },
+  {
+    id: 3,
+    name: "Household Consumption",
+    type: "Consumption",
+    date: "2026-10-29",
+    energy: 14.2,
+    notes: "Daily household electricity usage",
+  },
+  {
+    id: 4,
+    name: "Rooftop Solar",
+    type: "Generation",
+    date: "2026-10-29",
+    energy: 9.1,
+    notes: "Estimated rooftop solar generation",
+  },
+  {
+    id: 5,
+    name: "Household Consumption",
+    type: "Consumption",
+    date: "2026-10-30",
+    energy: 11.8,
+    notes: "Daily household electricity usage",
+  },
+];
