@@ -14,7 +14,10 @@ import Analytics from "./pages/dashboard/Analytics";
 import Appliances from "./pages/dashboard/Appliances";
 import EnergyRecords from "./pages/dashboard/EnergyRecords";
 import SolarEstimator from "./pages/dashboard/SolarEstimator";
+import Sustainability from "./pages/dashboard/Sustainability";
 import Settings from "./pages/dashboard/Settings";
+import SavingsInsights from "./pages/dashboard/SavingsInsights";
+import EnergyRecommendations from "./pages/dashboard/EnergyRecommendations";
 
 function MarketingLayout() {
   return (
@@ -45,6 +48,9 @@ export default function App() {
         <Route path="energy-records" element={<EnergyRecords />} />
         <Route path="solar-estimator" element={<SolarEstimator />} />
         <Route path="settings" element={<Settings />} />
+        <Route path="savings-insights" element={<SavingsInsights />} />
+        <Route path="sustainability" element={<Sustainability />} />
+        <Route path="recommendations" element={<EnergyRecommendations />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />

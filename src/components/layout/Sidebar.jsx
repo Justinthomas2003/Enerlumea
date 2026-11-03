@@ -10,6 +10,9 @@ import {
   Home,
   ClipboardList,
   Zap,
+  TrendingDown,
+  Globe,
+  Lightbulb,
 } from "lucide-react";
 
 const links = [
@@ -18,6 +21,9 @@ const links = [
   { label: "Appliances", path: "/dashboard/appliances", icon: Plug },
   { label: "Energy Records", path: "/dashboard/energy-records", icon: ClipboardList },
   { label: "Solar Estimator", path: "/dashboard/solar-estimator", icon: Sun },
+  { label: "Savings Insights", path: "/dashboard/savings-insights", icon: TrendingDown },
+  { label: "Sustainability", path: "/dashboard/sustainability", icon: Globe },
+  { label: "Recommendations", path: "/dashboard/recommendations", icon: Lightbulb },
   { label: "Settings", path: "/dashboard/settings", icon: Settings },
 ];
 
