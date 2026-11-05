@@ -9,7 +9,15 @@ import {
   Sun,
   Activity,
 } from "lucide-react";
-import { initialEnergyRecords } from "../../data/energyRecords";
+import ApiStatus from "../../components/common/ApiStatus";
+import useApiCollection from "../../hooks/useApiCollection";
+import useDialogFocus from "../../hooks/useDialogFocus";
+import {
+  createEnergyRecord,
+  deleteEnergyRecord as removeEnergyRecord,
+  listEnergyRecords,
+  updateEnergyRecord,
+} from "../../api/enerlumeaApi";
 
 const emptyForm = {
   name: "",
@@ -20,7 +28,13 @@ const emptyForm = {
 };
 
 export default function EnergyRecords() {
-  const [records, setRecords] = useState(initialEnergyRecords);
+  const {
+    items: records,
+    isLoading,
+    error: loadError,
+    setError: setLoadError,
+    reload,
+  } = useApiCollection(listEnergyRecords);
   const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState("All");
   const [dateFilter, setDateFilter] = useState("");
@@ -28,6 +42,7 @@ export default function EnergyRecords() {
   const [editingId, setEditingId] = useState(null);
   const [form, setForm] = useState(emptyForm);
   const [error, setError] = useState("");
+  const dialogRef = useDialogFocus(showForm, () => setShowForm(false));
 
   const filteredRecords = useMemo(() => {
     return records.filter((record) => {
@@ -68,7 +83,7 @@ export default function EnergyRecords() {
       type: record.type,
       date: record.date,
       energy: String(record.energy),
-      notes: record.notes,
+      notes: record.notes ?? "",
     });
     setError("");
     setShowForm(true);
@@ -79,7 +94,7 @@ export default function EnergyRecords() {
     setForm((previous) => ({ ...previous, [name]: value }));
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     const energy = Number(form.energy);
@@ -106,36 +121,35 @@ export default function EnergyRecords() {
       notes: form.notes.trim(),
     };
 
-    if (editingId !== null) {
-      setRecords((previous) =>
-        previous.map((record) =>
-          record.id === editingId
-            ? { ...record, ...recordData }
-            : record
-        )
-      );
-    } else {
-      setRecords((previous) => [
-        ...previous,
-        { id: Date.now(), ...recordData },
-      ]);
-    }
+    try {
+      if (editingId !== null) {
+        await updateEnergyRecord(editingId, recordData);
+      } else {
+        await createEnergyRecord(recordData);
+      }
 
-    setShowForm(false);
-    setEditingId(null);
-    setForm(emptyForm);
-    setError("");
+      setShowForm(false);
+      setEditingId(null);
+      setForm(emptyForm);
+      setError("");
+      await reload();
+    } catch (saveError) {
+      setError(saveError.message || "Could not save the energy record.");
+    }
   }
 
-  function deleteRecord(id) {
+  async function handleDeleteRecord(id) {
     const confirmed = window.confirm(
       "Are you sure you want to delete this energy record?"
     );
 
     if (confirmed) {
-      setRecords((previous) =>
-        previous.filter((record) => record.id !== id)
-      );
+      try {
+        await removeEnergyRecord(id);
+        await reload();
+      } catch (deleteError) {
+        setLoadError(deleteError.message || "Could not delete the energy record.");
+      }
     }
   }
 
@@ -152,6 +166,13 @@ export default function EnergyRecords() {
           Add Record
         </button>
       </div>
+
+      <ApiStatus
+        loading={isLoading}
+        error={loadError}
+        onRetry={reload}
+        resource="energy records"
+      />
 
       <div className="energy-record-summary">
         <article className="energy-record-summary-card">
@@ -184,6 +205,7 @@ export default function EnergyRecords() {
           <Search size={18} />
           <input
             type="search"
+            aria-label="Search energy records"
             placeholder="Search records..."
             value={search}
             onChange={(event) => setSearch(event.target.value)}
@@ -210,14 +232,15 @@ export default function EnergyRecords() {
 
       <div className="energy-record-table-wrapper">
         <table className="energy-record-table">
+          <caption className="visually-hidden">Saved energy records</caption>
           <thead>
             <tr>
-              <th>Record</th>
-              <th>Type</th>
-              <th>Date</th>
-              <th>Energy</th>
-              <th>Notes</th>
-              <th>Actions</th>
+              <th scope="col">Record</th>
+              <th scope="col">Type</th>
+              <th scope="col">Date</th>
+              <th scope="col">Energy</th>
+              <th scope="col">Notes</th>
+              <th scope="col">Actions</th>
             </tr>
           </thead>
 
@@ -258,7 +281,7 @@ export default function EnergyRecords() {
 
                       <button
                         type="button"
-                        onClick={() => deleteRecord(record.id)}
+                        onClick={() => handleDeleteRecord(record.id)}
                         aria-label={`Delete ${record.name}`}
                         title="Delete record"
                       >
@@ -275,9 +298,16 @@ export default function EnergyRecords() {
 
       {showForm && (
         <div className="appliance-modal-backdrop">
-          <form className="appliance-form" onSubmit={handleSubmit}>
+          <form
+            ref={dialogRef}
+            className="appliance-form"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="energy-record-form-title"
+            onSubmit={handleSubmit}
+          >
             <div className="form-header">
-              <h2>
+              <h2 id="energy-record-form-title">
                 {editingId !== null ? "Edit Energy Record" : "Add Energy Record"}
               </h2>
 
@@ -297,6 +327,7 @@ export default function EnergyRecords() {
                 value={form.name}
                 onChange={handleChange}
                 placeholder="e.g. Household Consumption"
+                maxLength={120}
                 required
               />
             </label>
@@ -330,6 +361,7 @@ export default function EnergyRecords() {
                 type="number"
                 name="energy"
                 min="0.01"
+                max="999999999.999"
                 step="any"
                 value={form.energy}
                 onChange={handleChange}
@@ -345,6 +377,7 @@ export default function EnergyRecords() {
                 value={form.notes}
                 onChange={handleChange}
                 placeholder="Additional information..."
+                maxLength={1000}
                 rows="3"
               />
             </label>

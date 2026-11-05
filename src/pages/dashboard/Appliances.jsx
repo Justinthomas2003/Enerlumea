@@ -7,10 +7,17 @@ import {
   X,
   Plug,
   Zap,
-  Clock,
   Activity,
 } from "lucide-react";
-import { initialAppliances } from "../../data/applianceData";
+import ApiStatus from "../../components/common/ApiStatus";
+import useApiCollection from "../../hooks/useApiCollection";
+import useDialogFocus from "../../hooks/useDialogFocus";
+import {
+  createAppliance,
+  deleteAppliance as removeAppliance,
+  listAppliances,
+  updateAppliance,
+} from "../../api/enerlumeaApi";
 
 const emptyForm = {
   name: "",
@@ -25,7 +32,13 @@ function calculateDailyConsumption(power, hours) {
 }
 
 export default function Appliances() {
-  const [appliances, setAppliances] = useState(initialAppliances);
+  const {
+    items: appliances,
+    isLoading,
+    error: loadError,
+    setError: setLoadError,
+    reload,
+  } = useApiCollection(listAppliances);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [categoryFilter, setCategoryFilter] = useState("All");
@@ -33,6 +46,7 @@ export default function Appliances() {
   const [editingId, setEditingId] = useState(null);
   const [form, setForm] = useState(emptyForm);
   const [error, setError] = useState("");
+  const dialogRef = useDialogFocus(showForm, () => setShowForm(false));
 
   const filteredAppliances = useMemo(() => {
     return appliances.filter((appliance) => {
@@ -91,7 +105,7 @@ export default function Appliances() {
     setForm((previous) => ({ ...previous, [name]: value }));
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     const power = Number(form.power);
@@ -119,36 +133,35 @@ export default function Appliances() {
       hoursPerDay: hours,
     };
 
-    if (editingId !== null) {
-      setAppliances((previous) =>
-        previous.map((item) =>
-          item.id === editingId
-            ? { ...item, ...applianceData }
-            : item
-        )
-      );
-    } else {
-      setAppliances((previous) => [
-        ...previous,
-        { id: Date.now(), ...applianceData },
-      ]);
-    }
+    try {
+      if (editingId !== null) {
+        await updateAppliance(editingId, applianceData);
+      } else {
+        await createAppliance(applianceData);
+      }
 
-    setShowForm(false);
-    setForm(emptyForm);
-    setEditingId(null);
-    setError("");
+      setShowForm(false);
+      setForm(emptyForm);
+      setEditingId(null);
+      setError("");
+      await reload();
+    } catch (saveError) {
+      setError(saveError.message || "Could not save the appliance.");
+    }
   }
 
-  function deleteAppliance(id) {
+  async function handleDeleteAppliance(id) {
     const confirmed = window.confirm(
       "Are you sure you want to delete this appliance?"
     );
 
     if (confirmed) {
-      setAppliances((previous) =>
-        previous.filter((item) => item.id !== id)
-      );
+      try {
+        await removeAppliance(id);
+        await reload();
+      } catch (deleteError) {
+        setLoadError(deleteError.message || "Could not delete the appliance.");
+      }
     }
   }
 
@@ -174,6 +187,13 @@ export default function Appliances() {
           Add Appliance
         </button>
       </div>
+
+      <ApiStatus
+        loading={isLoading}
+        error={loadError}
+        onRetry={reload}
+        resource="appliances"
+      />
 
       <div className="appliance-summary">
         <article className="appliance-summary-card">
@@ -206,6 +226,7 @@ export default function Appliances() {
           <Search size={18} />
           <input
             type="search"
+            aria-label="Search appliances"
             placeholder="Search appliances..."
             value={search}
             onChange={(event) => setSearch(event.target.value)}
@@ -292,7 +313,7 @@ export default function Appliances() {
 
                   <button
                     type="button"
-                    onClick={() => deleteAppliance(appliance.id)}
+                    onClick={() => handleDeleteAppliance(appliance.id)}
                     aria-label={`Delete ${appliance.name}`}
                     title="Delete appliance"
                   >
@@ -307,9 +328,18 @@ export default function Appliances() {
 
       {showForm && (
         <div className="appliance-modal-backdrop">
-          <form className="appliance-form" onSubmit={handleSubmit}>
+          <form
+            ref={dialogRef}
+            className="appliance-form"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="appliance-form-title"
+            onSubmit={handleSubmit}
+          >
             <div className="form-header">
-              <h2>{editingId !== null ? "Edit Appliance" : "Add Appliance"}</h2>
+              <h2 id="appliance-form-title">
+                {editingId !== null ? "Edit Appliance" : "Add Appliance"}
+              </h2>
               <button
                 type="button"
                 onClick={() => setShowForm(false)}
@@ -326,6 +356,7 @@ export default function Appliances() {
                 value={form.name}
                 onChange={handleChange}
                 placeholder="e.g. Air Conditioner"
+                maxLength={120}
                 required
               />
             </label>
@@ -351,6 +382,7 @@ export default function Appliances() {
                 name="power"
                 type="number"
                 min="1"
+                max="999999999.999"
                 step="any"
                 value={form.power}
                 onChange={handleChange}

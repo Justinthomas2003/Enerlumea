@@ -7,11 +7,19 @@ import {
   Info,
 } from "lucide-react";
 
-import { initialEnergyRecords } from "../../data/energyRecords";
+import ApiStatus from "../../components/common/ApiStatus";
+import useApiCollection from "../../hooks/useApiCollection";
+import { listEnergyRecords } from "../../api/enerlumeaApi";
 import { calculateSavingsInsights } from "../../utils/savingsCalculations";
 
 export default function SavingsInsights() {
   const [tariff, setTariff] = useState(6);
+  const {
+    items: records,
+    isLoading,
+    error,
+    reload,
+  } = useApiCollection(listEnergyRecords);
 
   const validTariff = Number(tariff);
   const safeTariff =
@@ -20,7 +28,7 @@ export default function SavingsInsights() {
       : 0;
 
   const insights = calculateSavingsInsights(
-    initialEnergyRecords,
+    records,
     safeTariff
   );
 
@@ -81,11 +89,17 @@ export default function SavingsInsights() {
         </div>
       </div>
 
+      <ApiStatus
+        loading={isLoading}
+        error={error}
+        onRetry={reload}
+        resource="energy records"
+      />
+
       <div className="demo-notice">
         <Info size={17} />
         <span>
-          Insights are calculated from the sample energy records
-          currently included in this demonstration.
+          Insights update from energy records saved through the API.
         </span>
       </div>
 
@@ -136,6 +150,11 @@ export default function SavingsInsights() {
           <div className="savings-progress-track">
             <div
               className="savings-progress-fill"
+              role="progressbar"
+              aria-label="Solar contribution to recorded consumption"
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-valuenow={Math.min(insights.solarContribution, 100)}
               style={{
                 width: `${Math.min(insights.solarContribution, 100)}%`,
               }}

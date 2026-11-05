@@ -8,19 +8,25 @@ import {
   CheckCircle2,
 } from "lucide-react";
 
-import { initialAppliances } from "../../data/applianceData";
-import { initialEnergyRecords } from "../../data/energyRecords";
+import ApiStatus from "../../components/common/ApiStatus";
+import useApiCollection from "../../hooks/useApiCollection";
+import { listAppliances, listEnergyRecords } from "../../api/enerlumeaApi";
 import { generateEnergyRecommendations } from "../../utils/energyRecommendations";
 
 function EnergyRecommendations() {
-  const recommendations = useMemo(
-    () =>
-      generateEnergyRecommendations(
-        initialAppliances,
-        initialEnergyRecords
-      ),
-    []
-  );
+  const appliancesState = useApiCollection(listAppliances);
+  const recordsState = useApiCollection(listEnergyRecords);
+  const recommendations = useMemo(() => generateEnergyRecommendations(
+    appliancesState.items,
+    recordsState.items,
+  ), [appliancesState.items, recordsState.items]);
+  const isLoading = appliancesState.isLoading || recordsState.isLoading;
+  const loadError = appliancesState.error || recordsState.error;
+
+  function retry() {
+    void appliancesState.reload();
+    void recordsState.reload();
+  }
 
   const highPriority = recommendations.filter(
     (item) => item.priority === "High"
@@ -61,6 +67,13 @@ function EnergyRecommendations() {
           <Lightbulb size={30} />
         </div>
       </div>
+
+      <ApiStatus
+        loading={isLoading}
+        error={loadError}
+        onRetry={retry}
+        resource="recommendation data"
+      />
 
       <div className="recommendation-stats">
         <div className="recommendation-stat-card">
@@ -168,7 +181,7 @@ function EnergyRecommendations() {
         <strong>About these recommendations</strong>
         <p>
           Recommendations are generated using predefined rules and
-          the sample appliance and energy-record datasets. They are
+          saved appliance and energy-record data. They are
           suggestions, not guaranteed energy savings. No live meter
           readings or AI predictions are used.
         </p>

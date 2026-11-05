@@ -10,8 +10,20 @@ import {
 } from "recharts";
 
 export default function EnergyChart({ data }) {
+  const totals = data.reduce(
+    (result, item) => ({
+      consumption: result.consumption + Number(item.consumption || 0),
+      solar: result.solar + Number(item.solar || 0),
+    }),
+    { consumption: 0, solar: 0 },
+  );
+
   return (
-    <div className="energy-chart">
+    <div
+      className="energy-chart"
+      role="img"
+      aria-label={`Energy chart for ${data.length} readings. Total consumption ${totals.consumption.toFixed(2)} kilowatt hours and solar generation ${totals.solar.toFixed(2)} kilowatt hours.`}
+    >
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart
           data={data}

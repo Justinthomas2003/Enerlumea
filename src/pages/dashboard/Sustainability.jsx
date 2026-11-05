@@ -7,11 +7,19 @@ import {
   Info,
 } from "lucide-react";
 
-import { initialEnergyRecords } from "../../data/energyRecords";
+import ApiStatus from "../../components/common/ApiStatus";
+import useApiCollection from "../../hooks/useApiCollection";
+import { listEnergyRecords } from "../../api/enerlumeaApi";
 import { calculateSustainabilityMetrics } from "../../utils/sustainabilityCalculations";
 
 export default function Sustainability() {
   const [emissionFactor, setEmissionFactor] = useState(0.7);
+  const {
+    items: records,
+    isLoading,
+    error,
+    reload,
+  } = useApiCollection(listEnergyRecords);
 
   const factor = Number(emissionFactor);
 
@@ -19,7 +27,7 @@ export default function Sustainability() {
     Number.isFinite(factor) && factor >= 0 ? factor : 0;
 
   const metrics = calculateSustainabilityMetrics(
-    initialEnergyRecords,
+    records,
     safeFactor
   );
 
@@ -70,11 +78,17 @@ export default function Sustainability() {
         </div>
       </div>
 
+      <ApiStatus
+        loading={isLoading}
+        error={error}
+        onRetry={reload}
+        resource="energy records"
+      />
+
       <div className="demo-notice">
         <Info size={17} />
         <span>
-          Environmental metrics are illustrative estimates based
-          on the current sample energy records.
+          Environmental metrics are estimates based on saved energy records.
         </span>
       </div>
 
@@ -144,6 +158,11 @@ export default function Sustainability() {
           <div className="sustainability-progress-track">
             <div
               className="sustainability-progress-fill"
+              role="progressbar"
+              aria-label="Renewable contribution to recorded consumption"
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-valuenow={Math.min(metrics.renewableContribution, 100)}
               style={{
                 width: `${Math.min(
                   metrics.renewableContribution,

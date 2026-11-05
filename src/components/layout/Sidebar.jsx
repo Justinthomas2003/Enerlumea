@@ -9,7 +9,6 @@ import {
   X,
   Home,
   ClipboardList,
-  Zap,
   TrendingDown,
   Globe,
   Lightbulb,
@@ -38,7 +37,11 @@ export default function Sidebar({ open, onClose }) {
         />
       )}
 
-      <aside className={`sidebar ${open ? "sidebar-open" : ""}`}>
+      <aside
+        id="dashboard-sidebar"
+        className={`sidebar ${open ? "sidebar-open" : ""}`}
+        aria-label="Dashboard navigation"
+      >
         <div className="brand">
           <div className="brand-icon">
             <Leaf size={23} />
@@ -51,6 +54,7 @@ export default function Sidebar({ open, onClose }) {
 
           <button
             className="close-sidebar"
+            type="button"
             onClick={onClose}
             aria-label="Close menu"
           >
@@ -60,7 +64,7 @@ export default function Sidebar({ open, onClose }) {
 
         <p className="nav-heading">WORKSPACE</p>
 
-        <nav className="navigation">
+        <nav className="navigation" aria-label="Workspace">
           {links.map(({ label, path, icon: Icon }) => (
             <NavLink
               key={path}

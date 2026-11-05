@@ -5,6 +5,30 @@ export function calculateSolarEstimate({
   performanceRatio,
   installationCostPerKw,
 }) {
+  const inputs = {
+    monthlyUsage,
+    peakSunHours,
+    tariff,
+    performanceRatio,
+    installationCostPerKw,
+  };
+
+  if (Object.values(inputs).some((value) => !Number.isFinite(value))) {
+    throw new TypeError("Solar estimate inputs must be finite numbers.");
+  }
+
+  if (monthlyUsage < 0 || tariff < 0 || installationCostPerKw < 0) {
+    throw new RangeError("Usage, tariff, and installation cost cannot be negative.");
+  }
+
+  if (peakSunHours <= 0) {
+    throw new RangeError("Peak sunlight hours must be greater than zero.");
+  }
+
+  if (performanceRatio <= 0 || performanceRatio > 100) {
+    throw new RangeError("Performance ratio must be greater than zero and at most 100.");
+  }
+
   const dailyUsage = monthlyUsage / 30;
 
   // Estimated solar capacity required to meet average daily usage.

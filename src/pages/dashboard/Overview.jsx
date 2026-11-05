@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 
 import MetricCard from "../../components/common/MetricCard";
-import EnergyChart from "../../components/common/EnergyChart";
+import EnergyChart from "../../components/common/LazyEnergyChart";
 
 import {
   weeklyEnergyData,

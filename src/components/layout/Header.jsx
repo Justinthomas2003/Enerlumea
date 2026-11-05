@@ -1,13 +1,22 @@
 
 import { Menu, Sun, Moon } from "lucide-react";
 
-export default function Header({ onMenuClick, theme, onThemeToggle }) {
+export default function Header({
+  onMenuClick,
+  menuOpen,
+  menuButtonRef,
+  theme,
+  onThemeToggle,
+}) {
   return (
     <header className="topbar">
       <button
+        ref={menuButtonRef}
         className="menu-button"
         onClick={onMenuClick}
         aria-label="Open navigation"
+        aria-expanded={menuOpen}
+        aria-controls="dashboard-sidebar"
       >
         <Menu size={22} />
       </button>
@@ -20,7 +29,8 @@ export default function Header({ onMenuClick, theme, onThemeToggle }) {
       <button
         className="theme-button"
         onClick={onThemeToggle}
-        aria-label="Toggle color theme"
+        aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
+        aria-pressed={theme === "dark"}
       >
         {theme === "light" ? <Moon size={19} /> : <Sun size={19} />}
       </button>

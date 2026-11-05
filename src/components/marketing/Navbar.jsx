@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Leaf, Menu, X, ArrowUpRight } from "lucide-react";
 
@@ -11,10 +11,22 @@ const navItems = [
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuButtonRef = useRef(null);
+
+  function handleKeyDown(event) {
+    if (event.key !== "Escape" || !menuOpen) return;
+
+    setMenuOpen(false);
+    menuButtonRef.current?.focus();
+  }
 
   return (
     <header className="marketing-header">
-      <nav className="marketing-nav">
+      <nav
+        className="marketing-nav"
+        aria-label="Main navigation"
+        onKeyDown={handleKeyDown}
+      >
         <Link
           to="/"
           className="marketing-brand"
@@ -27,6 +39,7 @@ export default function Navbar() {
         </Link>
 
         <button
+          ref={menuButtonRef}
           className="mobile-menu-toggle"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label={menuOpen ? "Close navigation" : "Open navigation"}
