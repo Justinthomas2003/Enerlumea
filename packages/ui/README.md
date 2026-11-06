@@ -1,27 +1,35 @@
-# @enerlumea/ui
+# `@enerlumea/ui`
 
-The Enerlumea React component library is a private npm workspace package. It
-provides small, accessible building blocks for use by this app and other
-packages in the same repository.
+`@enerlumea/ui` is a private npm workspace package containing reusable React
+components for this application and other packages in the repository.
 
 ## Components
 
-- `Button`: native button with primary/secondary variants and small/medium/large sizes.
-- `Card`: surface container; use `as` to select an appropriate semantic element.
-- `TextField`: labeled input with optional hint and validation error associations.
+- **`Button`** — a native button with primary and secondary variants and
+  small, medium, and large sizes.
+- **`Card`** — a surface container with an `as` prop for selecting an
+  appropriate semantic element.
+- **`TextField`** — a labeled input with optional hint text and validation
+  error associations.
 
-Import the package stylesheet once in the application entry:
+Import the package stylesheet once from the application entry point:
 
 ```js
 import "@enerlumea/ui/style.css";
 ```
 
-Then import components as needed:
+Import components where needed:
 
 ```jsx
 import { Button, Card, TextField } from "@enerlumea/ui";
 ```
 
-The root `npm run dev` and `npm run build` commands build the library first.
-Run `npm run build:ui` to build it alone. The package is private and is not
-configured for publication to npm.
+From the repository root, `npm run dev` and `npm run build` build the library
+before starting or building the application. To build the library by itself,
+run:
+
+```powershell
+npm run build:ui
+```
+
+The package is private and is not configured for publication to npm.
