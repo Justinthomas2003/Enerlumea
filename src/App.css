@@ -107,6 +107,7 @@
 .main-area {
   width: calc(100% - 260px);
   margin-left: 260px;
+  min-width: 0;
   min-height: 100vh;
 }
 
@@ -1584,7 +1585,9 @@
 
 .back-home-link {
   margin: 15px 12px 20px;
-  border: 1px solid #e8eee9;
+  color: #ffffff;
+  background: #102d29;
+  border: 1px solid #3b5b4e;
   border-radius: 9px;
 }
 

@@ -25,6 +25,7 @@ jobs:
           cache: maven
 
       - run: npm ci
+      - run: npm run build:ui
       - run: npm audit --audit-level=moderate
       - run: npm run lint
       - run: npm run test:run
