@@ -1,0 +1,119 @@
+:root {
+  --eu-color-forest: #102d29;
+  --eu-color-emerald: #147a58;
+  --eu-color-text: #1c2925;
+  --eu-color-muted: #58665f;
+  --eu-color-surface: #ffffff;
+  --eu-color-border: #d3ddd6;
+  --eu-color-danger: #a32121;
+  --eu-radius-control: 8px;
+  --eu-radius-card: 12px;
+  --eu-focus-ring: 3px solid #147a58;
+}
+
+.eu-button {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid transparent;
+  border-radius: var(--eu-radius-control);
+  padding: 8px 14px;
+  font: inherit;
+  font-weight: 600;
+  line-height: 1.25;
+  cursor: pointer;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.eu-button[data-size="small"] {
+  min-height: 34px;
+  padding: 6px 10px;
+  font-size: 0.875rem;
+}
+
+.eu-button[data-size="large"] {
+  min-height: 48px;
+  padding: 12px 18px;
+}
+
+.eu-button[data-variant="primary"] {
+  background: var(--eu-color-forest);
+  color: #ffffff;
+}
+
+.eu-button[data-variant="primary"]:hover:not(:disabled) {
+  background: var(--eu-color-emerald);
+}
+
+.eu-button[data-variant="secondary"] {
+  border-color: var(--eu-color-border);
+  background: var(--eu-color-surface);
+  color: var(--eu-color-text);
+}
+
+.eu-button[data-variant="secondary"]:hover:not(:disabled) {
+  background: #f0f5f1;
+}
+
+.eu-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.eu-card {
+  min-width: 0;
+  border: 1px solid var(--eu-color-border);
+  border-radius: var(--eu-radius-card);
+  padding: 20px;
+  background: var(--eu-color-surface);
+  color: var(--eu-color-text);
+}
+
+.eu-field {
+  display: grid;
+  gap: 6px;
+  color: var(--eu-color-text);
+}
+
+.eu-field-label {
+  font-weight: 600;
+}
+
+.eu-input {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid var(--eu-color-border);
+  border-radius: var(--eu-radius-control);
+  padding: 8px 10px;
+  background: var(--eu-color-surface);
+  color: var(--eu-color-text);
+  font: inherit;
+}
+
+.eu-input[aria-invalid="true"] {
+  border-color: var(--eu-color-danger);
+}
+
+.eu-field-hint {
+  color: var(--eu-color-muted);
+  font-size: 0.875rem;
+}
+
+.eu-field-error {
+  color: var(--eu-color-danger);
+  font-size: 0.875rem;
+}
+
+.eu-button:focus-visible,
+.eu-input:focus-visible {
+  outline: var(--eu-focus-ring);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eu-button {
+    transition: none;
+  }
+}

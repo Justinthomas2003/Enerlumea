@@ -105,7 +105,7 @@ export default function SavingsInsights() {
 
       <div className="savings-tariff-card">
         <div>
-          <h3>Electricity Tariff</h3>
+          <h2>Electricity Tariff</h2>
           <p>Adjust the rate used in the savings calculation.</p>
         </div>
 

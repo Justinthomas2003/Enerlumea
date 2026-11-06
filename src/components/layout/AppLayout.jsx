@@ -6,8 +6,14 @@ import Header from "./Header";
 
 export default function AppLayout() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState(() =>
+    window.localStorage.getItem("enerlumea-theme") === "dark" ? "dark" : "light",
+  );
   const menuButtonRef = useRef(null);
+
+  useEffect(() => {
+    window.localStorage.setItem("enerlumea-theme", theme);
+  }, [theme]);
 
   useEffect(() => {
     if (!menuOpen) return undefined;
@@ -45,7 +51,7 @@ export default function AppLayout() {
         />
 
         <main className="page-content">
-          <Outlet />
+          <Outlet context={{ theme, setTheme }} />
         </main>
       </div>
     </div>

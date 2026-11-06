@@ -3,11 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#147a58" />
+    <meta name="description" content="Track household energy use, explore solar potential, and identify practical ways to reduce electricity costs." />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Enerlumea" />
+    <meta property="og:title" content="Enerlumea | Smarter energy management" />
+    <meta property="og:description" content="Track energy use, explore solar potential, and find practical savings opportunities." />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Enerlumea | Smarter energy management" />
+    <meta name="twitter:description" content="Track energy use, explore solar potential, and find practical savings opportunities." />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>enerlumea</title>
+    <title>Enerlumea | Smarter energy management</title>
   </head>
   <body>
     <div id="root"></div>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Enerlumea",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web",
+        "description": "An energy management dashboard for tracking household consumption, solar potential, and savings opportunities."
+      }
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

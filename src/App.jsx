@@ -4,9 +4,9 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Navbar from "./components/marketing/Navbar";
 import Footer from "./components/marketing/Footer";
 import PageSuspense from "./components/common/PageSuspense";
+import Home from "./pages/marketing/Home";
 
 const AppLayout = lazy(() => import("./components/layout/AppLayout"));
-const Home = lazy(() => import("./pages/marketing/Home"));
 const About = lazy(() => import("./pages/marketing/About"));
 const Features = lazy(() => import("./pages/marketing/Features"));
 const Contact = lazy(() => import("./pages/marketing/Contact"));
@@ -29,7 +29,7 @@ function MarketingLayout() {
       <Navbar />
       <main>
         <Routes>
-          <Route index element={<PageSuspense><Home /></PageSuspense>} />
+          <Route index element={<Home />} />
           <Route path="about" element={<PageSuspense><About /></PageSuspense>} />
           <Route path="features" element={<PageSuspense><Features /></PageSuspense>} />
           <Route path="contact" element={<PageSuspense><Contact /></PageSuspense>} />

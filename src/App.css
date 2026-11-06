@@ -294,6 +294,10 @@
   padding: 58px max(28px, calc((100% - 1184px) / 2)) 22px;
 }
 
+.footer-brand .marketing-brand {
+  color: #ffffff;
+}
+
 .footer-main {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
@@ -314,7 +318,7 @@
   gap: 14px;
 }
 
-.footer-column h4 {
+.footer-column h2 {
   color: #b5db69;
   font-size: 13px;
   margin: 0 0 6px;
@@ -648,7 +652,7 @@
   letter-spacing: 1px;
 }
 
-.preview-header h3 {
+.preview-header h2 {
   margin: 8px 0 0;
   color: #102d29;
   font-size: 18px;
@@ -852,7 +856,7 @@
   font-weight: 700;
 }
 
-.feature-card h3 {
+.feature-card h2 {
   margin: 25px 0 12px;
   color: #102d29;
   font-size: 18px;
@@ -1306,6 +1310,36 @@
   border-radius: 14px;
 }
 
+.settings-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.settings-page h1 {
+  margin: 0 0 8px;
+}
+
+.settings-page > .settings-heading p,
+.settings-card p {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.settings-card {
+  display: grid;
+  gap: 16px;
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+.settings-card h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
 .chart-card-heading {
   display: flex;
   justify-content: space-between;
@@ -1410,7 +1444,7 @@
   margin-bottom: 15px;
 }
 
-.notification-heading h3 {
+.notification-heading h2 {
   margin: 0;
   font-size: 16px;
 }
@@ -2059,8 +2093,8 @@
   padding: 24px;
 }
 
-.solar-input-card h3,
-.solar-results-card h3 {
+.solar-input-card h2,
+.solar-results-card h2 {
   margin: 0 0 8px;
 }
 
@@ -2190,7 +2224,7 @@
   border-radius: 14px;
 }
 
-.savings-tariff-card h3 {
+.savings-tariff-card h2 {
   margin: 0 0 6px;
 }
 
@@ -2424,7 +2458,7 @@
   border-radius: 14px;
 }
 
-.sustainability-factor-card h3 {
+.sustainability-factor-card h2 {
   margin: 0 0 6px;
 }
 
@@ -2543,7 +2577,7 @@
   border-radius: 14px;
 }
 
-.sustainability-summary h3 {
+.sustainability-summary h2 {
   margin: 0 0 14px;
 }
 

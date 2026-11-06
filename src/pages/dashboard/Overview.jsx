@@ -77,7 +77,7 @@ export default function Overview() {
       {notificationsOpen && (
         <section className="notification-panel">
           <div className="notification-heading">
-            <h3>Notifications</h3>
+            <h2>Notifications</h2>
             <span>{dashboardNotifications.length} updates</span>
           </div>
 

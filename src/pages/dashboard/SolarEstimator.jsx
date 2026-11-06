@@ -145,7 +145,7 @@ export default function SolarEstimator() {
     <section className="solar-estimator-page">
       <div className="page-heading">
         <div>
-          <h2>Solar Estimator</h2>
+          <h1>Solar Estimator</h1>
           <p>
             Estimate your rooftop solar capacity, generation and
             potential savings.
@@ -155,7 +155,7 @@ export default function SolarEstimator() {
 
       <div className="solar-estimator-grid">
         <div className="solar-input-card">
-          <h3>Solar Configuration</h3>
+          <h2>Solar Configuration</h2>
           <p>Adjust the values to calculate your solar potential.</p>
 
           <form onSubmit={handleSubmit} noValidate>
@@ -204,7 +204,7 @@ export default function SolarEstimator() {
         </div>
 
         <div className="solar-results-card">
-          <h3>Your Solar Estimate</h3>
+          <h2>Your Solar Estimate</h2>
           <p>Calculated from your current configuration.</p>
 
           {estimate ? (

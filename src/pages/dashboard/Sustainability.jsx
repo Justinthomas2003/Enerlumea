@@ -94,7 +94,7 @@ export default function Sustainability() {
 
       <div className="sustainability-factor-card">
         <div>
-          <h3>Grid Emissions Factor</h3>
+          <h2>Grid Emissions Factor</h2>
           <p>
             Assumed kilograms of CO₂ per kWh of grid electricity.
           </p>
@@ -179,7 +179,7 @@ export default function Sustainability() {
       </section>
 
       <div className="sustainability-summary">
-        <h3>Calculation Summary</h3>
+        <h2>Calculation Summary</h2>
 
         <div>
           <span>Total recorded consumption</span>

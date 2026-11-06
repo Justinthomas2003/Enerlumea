@@ -51,14 +51,14 @@ export default function EnergyChart({ data }) {
             dataKey="day"
             axisLine={false}
             tickLine={false}
-            tick={{ fill: "#87928d", fontSize: 12 }}
+            tick={{ fill: "#58665f", fontSize: 12 }}
             dy={10}
           />
 
           <YAxis
             axisLine={false}
             tickLine={false}
-            tick={{ fill: "#87928d", fontSize: 11 }}
+            tick={{ fill: "#58665f", fontSize: 11 }}
           />
 
           <Tooltip
@@ -74,7 +74,11 @@ export default function EnergyChart({ data }) {
             verticalAlign="top"
             align="right"
             iconType="circle"
-            wrapperStyle={{ fontSize: "12px", paddingBottom: "20px" }}
+            wrapperStyle={{
+              color: "#58665f",
+              fontSize: "12px",
+              paddingBottom: "20px",
+            }}
           />
 
           <Area

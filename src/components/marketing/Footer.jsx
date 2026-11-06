@@ -19,7 +19,7 @@ export default function Footer() {
         </div>
 
         <div className="footer-column">
-          <h4>Explore</h4>
+          <h2>Explore</h2>
           <Link to="/">Home</Link>
           <Link to="/about">About</Link>
           <Link to="/features">Features</Link>
@@ -27,7 +27,7 @@ export default function Footer() {
         </div>
 
         <div className="footer-column">
-          <h4>Platform</h4>
+          <h2>Platform</h2>
           <Link to="/dashboard">Dashboard <ArrowUpRight size={13} /></Link>
           <Link to="/dashboard/analytics">Analytics</Link>
           <Link to="/dashboard/solar-estimator">Solar Estimator</Link>

@@ -3,15 +3,21 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "predev": "npm run build:ui",
+    "build": "npm run build:ui && vite build",
+    "build:ui": "npm run build --workspace @enerlumea/ui",
     "lint": "eslint .",
     "preview": "vite preview",
     "api:dev": "mvn -f backend/pom.xml spring-boot:run",
     "api:test": "mvn -f backend/pom.xml test",
     "test": "vitest",
-    "test:run": "vitest run"
+    "test:run": "vitest run",
+    "test:browser": "npm run build && playwright test"
   },
   "dependencies": {
     "lucide-react": "^1.65.0",
@@ -22,6 +28,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.64.1",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
     "@types/react": "^19.3.0",

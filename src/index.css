@@ -1,8 +1,6 @@
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
-
 :root {
-  font-family: "Inter", sans-serif;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: #1c2925;
   background: #f5f7f2;
   font-synthesis: none;

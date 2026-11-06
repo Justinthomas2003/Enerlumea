@@ -3,6 +3,17 @@ import { describe, expect, it } from "vitest";
 import SolarEstimator from "./SolarEstimator";
 
 describe("SolarEstimator", () => {
+  it("uses a sequential page heading structure", () => {
+    render(<SolarEstimator />);
+
+    expect(
+      screen.getByRole("heading", { name: "Solar Estimator", level: 1 }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Solar Configuration", level: 2 }),
+    ).toBeInTheDocument();
+  });
+
   it("hides the estimate while an input is incomplete", () => {
     render(<SolarEstimator />);
 

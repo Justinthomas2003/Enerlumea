@@ -52,7 +52,7 @@ export default function Hero() {
             <div className="preview-header">
               <div>
                 <span className="preview-label">ENERGY OVERVIEW</span>
-                <h3>Your energy snapshot</h3>
+                <h2>Your energy snapshot</h2>
               </div>
               <span className="preview-icon"><Zap size={20} /></span>
             </div>

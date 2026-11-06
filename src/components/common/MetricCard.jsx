@@ -26,10 +26,10 @@ export default function MetricCard({ metric }) {
 
       <p className="metric-title">{metric.title}</p>
 
-      <h3 className="metric-value">
+      <h2 className="metric-value">
         {metric.value}
         {metric.unit && <small> {metric.unit}</small>}
-      </h3>
+      </h2>
     </article>
   );
 }
