@@ -77,8 +77,8 @@ The latest saved Lighthouse reports are:
 
 | Device | Performance | Accessibility | Best Practices | SEO | Report |
 | --- | ---: | ---: | ---: | ---: | --- |
-| Mobile | 97 | 100 | 100 | 100 | [Mobile report](<docs/lighthouse(mob).report.json>) |
-| Desktop | 100 | 100 | 100 | 100 | [Desktop report](<docs/lighthouse(desk).report.json>) |
+| Mobile | 97 | 100 | 100 | 100 | [Mobile report](lighthouse/lighthouse-mobile.json) |
+| Desktop | 100 | 100 | 100 | 100 | [Desktop report](lighthouse/lighthouse-desktop.json) |
 
 These reports were captured locally on November 6, 2026, and contain no
 Lighthouse run warnings. Scores are snapshots of those runs, not guarantees
@@ -104,6 +104,13 @@ implemented.
 
 See the [architecture overview](docs/architecture.md) for the client, API,
 and local database layout.
+
+Additional project documentation:
+
+- [Project overview](docs/project-overview.md)
+- [Component hierarchy](docs/component-hierarchy.md)
+- [Design decisions](docs/design-decisions.md)
+- [Setup guide](docs/setup-guide.md)
 
 ## Component library
 
