@@ -100,6 +100,21 @@ The dashboard defaults to the light theme and stores the selected theme in the
 current browser. Sign-in and cross-device preference synchronization are not
 implemented.
 
+## Screenshots
+
+Desktop captures use a 1440 × 1000 viewport; mobile captures use a
+390 × 844 viewport.
+
+| Page | Screenshot |
+| --- | --- |
+| About | ![Enerlumea About page on desktop](docs/screenshots/about-desktop.png) |
+| Contact | ![Enerlumea Contact page on desktop](docs/screenshots/contact-desktop.png) |
+| Dashboard overview | ![Enerlumea dashboard overview on desktop](docs/screenshots/dashboard-overview-desktop.png) |
+| Dashboard analytics | ![Enerlumea dashboard analytics on desktop](docs/screenshots/dashboard-analytics-desktop.png) |
+| Dashboard appliances | ![Enerlumea appliance management on desktop](docs/screenshots/dashboard-appliances-desktop.png) |
+| Home (mobile) | ![Enerlumea home page on mobile](docs/screenshots/home-mobile.png) |
+| Dashboard (mobile) | ![Enerlumea dashboard on mobile](docs/screenshots/dashboard-mobile.png) |
+
 ## Architecture
 
 See the [architecture overview](docs/architecture.md) for the client, API,
